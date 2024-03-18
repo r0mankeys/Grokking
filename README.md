@@ -1,5 +1,9 @@
 # Grokking
 
+[![My Skills](https://skillicons.dev/icons?i=c,python)](https://skillicons.dev)
+
+## Description
+
 A collection of code implementations and notes from the book "Grokking Algorithms" by Aditya Y. Bhargava.
 
 In the book the code snippets are written in python, that is why I have one
