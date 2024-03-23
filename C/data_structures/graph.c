@@ -215,7 +215,6 @@ search_result search_node(linked_list *list, char *reference)
     return (search_result){ .found = false, .data = NULL };
 }
 
-// write tests for the linked list
 
 int main(int argc, char *argv[])
 {
