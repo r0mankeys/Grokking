@@ -11,7 +11,6 @@
 #include <stdbool.h>
 
 // 1. Linked List 
-
 typedef struct linked_list_node {
     char* data;
     struct linked_list_node *next;
@@ -215,8 +214,123 @@ search_result search_node(linked_list *list, char *reference)
     return (search_result){ .found = false, .data = NULL };
 }
 
+// 2. Hash Map -> Graph (Adjacency List)
+typedef struct graph {
+    linked_list **adjacency_list;
+    size_t size;
+} graph;
+
+int hash(char *vertex, size_t size);
+graph *create_graph(size_t size);
+void free_graph(graph *graph);
+void add_vertex(graph *graph, char *vertex);
+void add_edge(graph *graph, char *vertex1, char *vertex2);
+void print_graph(graph *graph);
+
+int hash(char *vertex, size_t size)
+{
+    int hash = 0;
+    for (size_t i = 0; i < strlen(vertex); i++)
+    {
+        hash += vertex[i];
+    }
+    return hash % size;
+}
+
+graph *create_graph(size_t size)
+{
+    if (size == 0)
+    {
+        fprintf(stderr, "Invalid size\n");
+        return NULL; // Handle invalid size
+    }
+    
+    graph *new_graph = (graph *)malloc(sizeof(graph));
+    if (!new_graph)
+    {
+        fprintf(stderr, "Memory allocation failure for graph\n");
+        return NULL;
+    }
+    new_graph->size = size;
+    new_graph->adjacency_list = (linked_list **)calloc(size, sizeof(linked_list *)); // Allocate memory for the array of linked lists
+    // and initialize all the pointers to NULL
+    if (!new_graph->adjacency_list)
+    {
+        fprintf(stderr, "Memory allocation failure for adjacency list\n");
+        free(new_graph);
+        return NULL;
+    }
+    return new_graph;
+}
+
+void free_graph(graph *graph)
+{
+    for (size_t i = 0; i < graph->size; i++)
+    {
+        if (graph->adjacency_list[i] != NULL)
+        {
+            free_linked_list(graph->adjacency_list[i]);
+        }
+    }
+    free(graph->adjacency_list);
+    free(graph);
+}
+
+void add_vertex(graph *graph, char *vertex)
+{
+    int index = hash(vertex, graph->size);
+    if (graph->adjacency_list[index] == NULL)
+    {
+        graph->adjacency_list[index] = create_linked_list();
+    }
+    append_node(graph->adjacency_list[index], vertex);
+}
+
+void add_edge(graph *graph, char *vertex1, char *vertex2)
+{
+    int index1 = hash(vertex1, graph->size);
+    int index2 = hash(vertex2, graph->size);
+    if (graph->adjacency_list[index1] == NULL || graph->adjacency_list[index2] == NULL)
+    {
+        fprintf(stderr, "One or both vertices do not exist\n");
+        return;
+    }
+    append_node(graph->adjacency_list[index1], vertex2);
+    append_node(graph->adjacency_list[index2], vertex1);
+}
+
+void print_graph(graph *graph)
+{
+    printf("\nGraph\n-----------------------------\n");
+    for (size_t i = 0; i < graph->size; i++)
+    {
+        if (graph->adjacency_list[i] != NULL)
+        {
+            printf("Index: %lu\n", i);
+            print_list(graph->adjacency_list[i]);
+        }
+    }
+    printf("-----------------------------\n\n");
+}
 
 int main(int argc, char *argv[])
 {
+    graph *graph = create_graph(10);
+    add_vertex(graph, "A");
+    add_vertex(graph, "B");
+    add_vertex(graph, "C");
+    add_vertex(graph, "D");
+    add_vertex(graph, "E");
+    add_vertex(graph, "F");
+    add_vertex(graph, "G");
+    add_vertex(graph, "H");
+    add_vertex(graph, "I");
+    add_vertex(graph, "J");
+
+    print_graph(graph);
+
+    add_edge(graph, "F", "G");
+
+    print_graph(graph);
     return 0;
 }
