@@ -6,24 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-typedef struct stack_node {
-    char *data;
-    struct stack_node *next;
-} stack_node;
-
-typedef struct {
-    stack_node *head;
-    size_t size;
-} stack;
-
-stack_node *create_stack_node(char *data);
-stack *create_stack();
-void free_stack_node(stack_node *node);
-void free_stack(stack *stack);
-void stack_push(stack *stack, char *data);
-char *stack_pop(stack *stack);
-void print_stack(stack *stack);
+#include "../header_files/stack.h"
 
 stack_node *create_stack_node(char *data)
 {
@@ -120,25 +103,4 @@ void print_stack(stack *stack)
     }
     printf("-------------------\n");
     printf("Size: %lu\n", stack->size);
-}
-
-int main(int argc, char *argv[])
-{
-    stack *stack = create_stack();
-
-    stack_push(stack, "Hello");
-    stack_push(stack, "World");
-    stack_push(stack, "!");
-
-    print_stack(stack);
-
-    char *exclaim = stack_pop(stack);
-
-    print_stack(stack);
-    printf("Popped: %s\n", exclaim);
-
-    free(exclaim);
-
-    free_stack(stack);
-    return 0;
 }

@@ -1,29 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../header_files/hash_table.h"
 
 #define CAPACITY 5000 // Size of the hash table
 
-typedef struct table_item {
-    char *key;
-    char *value;
-} table_item;
-
-typedef struct hash_table {
-    table_item **items;
-    size_t size;
-    int count;
-} hash_table;
-
-unsigned long hash_function(char *str);
-table_item *create_table_item(char *key, char *value);
-hash_table *create_hash_table(size_t size);
-void print_table(hash_table *table);
-void hash_table_insert(hash_table *table, char *key, char *value);
-void hash_table_delete(hash_table *table, char *key);
-void hash_table_search(hash_table *table, char *key);
-void free_item(table_item *item);
-void free_table(hash_table *table);
 
 unsigned long hash_function(char *str)
 {
@@ -153,19 +134,4 @@ void free_table(hash_table *table)
     }
     free(table->items);
     free(table);
-}
-
-int main(int argc, char *argv[])
-{
-    hash_table *my_hash_table = create_hash_table(CAPACITY);
-    hash_table_insert(my_hash_table, "Apple", "A sweet red fruit");
-    hash_table_insert(my_hash_table, "Banana", "A yellow fruit");
-    hash_table_insert(my_hash_table, "Orange", "A citrus orange fruit");
-    print_table(my_hash_table);
-    hash_table_search(my_hash_table, "Apple");
-
-    // Free the memory
-    free_table(my_hash_table);
-
-    return 0;
 }

@@ -9,25 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-typedef struct queue_node {
-    char *data;
-    struct queue_node *next;
-} queue_node;
-
-typedef struct queue {
-    queue_node *tail;
-    queue_node *head;
-    size_t size;
-} queue;
-
-queue_node *create_queue_node(char *data);
-queue *create_queue();
-void free_queue_node(queue_node *node);
-void free_queue(queue *queue);
-void enqueue(queue *queue, char *data);
-char *dequeue(queue *queue);
-void print_queue(queue *queue);
+#include "../header_files/queue.h"
 
 queue_node *create_queue_node(char *data)
 {
@@ -132,40 +114,4 @@ void print_queue(queue *queue)
     }
     printf("\n--------------------\n");
     printf("Size: %zu\n", queue->size);
-}
-
-int main(int argc, char *argv[])
-{
-    queue *my_queue = create_queue();
-    enqueue(my_queue, "John");
-    enqueue(my_queue, "Klaus");
-    enqueue(my_queue, "Francine");
-    enqueue(my_queue, "Roger");
-    enqueue(my_queue, "Steve");
-    enqueue(my_queue, "Hayley");
-    enqueue(my_queue, "Stan");
-
-    print_queue(my_queue);
-
-    char *john = dequeue(my_queue);
-    char *klaus = dequeue(my_queue);
-
-    free(john);
-    free(klaus);
-
-    printf("\n");
-    printf("After two dequeues:\n");
-    
-    print_queue(my_queue); // Francine should be the head of the queue
-
-    enqueue(my_queue, "Jeff");
-    enqueue(my_queue, "Peter");
-    enqueue(my_queue, "Lois");
-
-    printf("\n");
-    printf("After three enqueues:\n");
-    print_queue(my_queue);
-
-    free_queue(my_queue);
-    return 0;
 }
