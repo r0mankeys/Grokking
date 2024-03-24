@@ -316,21 +316,16 @@ void print_graph(graph *graph)
 int main(int argc, char *argv[])
 {
     graph *graph = create_graph(10);
-    add_vertex(graph, "A");
-    add_vertex(graph, "B");
-    add_vertex(graph, "C");
-    add_vertex(graph, "D");
-    add_vertex(graph, "E");
-    add_vertex(graph, "F");
-    add_vertex(graph, "G");
-    add_vertex(graph, "H");
-    add_vertex(graph, "I");
-    add_vertex(graph, "J");
+    add_vertex(graph, "Paul");
+    add_vertex(graph, "John");
+    add_vertex(graph, "George");
+    add_vertex(graph, "Sally");
+
+    add_edge(graph, "Paul", "John");
+    add_edge(graph, "Paul", "Sally");
+    add_edge(graph, "George", "Sally");
 
     print_graph(graph);
 
-    add_edge(graph, "F", "G");
-
-    print_graph(graph);
     return 0;
 }
