@@ -116,7 +116,7 @@ char *dequeue(queue *queue)
         queue->tail = NULL; // If there was only one node in the queue, then the tail should be NULL
     }
 
-    free_queue_node(node_to_free);
+    free(node_to_free); // Free the node that was dequeued
     queue->size--;
     return data;
 }
@@ -147,8 +147,11 @@ int main(int argc, char *argv[])
 
     print_queue(my_queue);
 
-    dequeue(my_queue);
-    dequeue(my_queue);
+    char *john = dequeue(my_queue);
+    char *klaus = dequeue(my_queue);
+
+    free(john);
+    free(klaus);
 
     printf("\n");
     printf("After two dequeues:\n");
