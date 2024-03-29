@@ -161,7 +161,7 @@ void print_list(linked_list *list)
          printf("%s -> ", current_node->data);
          current_node = current_node->next;
      }
-    printf("NULL\nSize: %lu\n", list->size);
+    printf("NULL\nSize: %d\n", list->size);
     printf("-------------------\n\n");
 }
 

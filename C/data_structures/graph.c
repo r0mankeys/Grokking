@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "../header_files/graph.h"
 
-int hash(char *vertex, size_t size)
+int hash(char *vertex, int size)
 {
     int hash = 0;
     for (size_t i = 0; i < strlen(vertex); i++)
@@ -20,7 +20,7 @@ int hash(char *vertex, size_t size)
     return hash % size;
 }
 
-graph *create_graph(size_t size)
+graph *create_graph(int size)
 {
     if (size == 0)
     {
