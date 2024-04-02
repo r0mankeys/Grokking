@@ -12,6 +12,8 @@
 
 int hash(char *vertex, int size)
 {
+// TODO: Implement a better hash function, is not effecive for small sizes
+
     int hash = 0;
     for (size_t i = 0; i < strlen(vertex); i++)
     {
@@ -19,6 +21,7 @@ int hash(char *vertex, int size)
     }
     return hash % size;
 }
+
 
 graph *create_graph(int size)
 {
